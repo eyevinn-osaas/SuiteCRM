@@ -10,14 +10,6 @@ WORKDIR /source
 VOLUME ["/var/www/html"]
 
 RUN wget https://suitecrm.com/download/148/suite87/564544/suitecrm-8-7-0.zip
-RUN unzip suitecrm-8-7-0.zip -d /var/www/html
-
-RUN chown -R www-data:www-data /var/www/html
-RUN chmod -R 755 /var/www/html
-RUN find /var/www/html -type d -not -perm 2755 -exec chmod 2755 {} \;
-RUN find /var/www/html -type f -not -perm 0644 -exec chmod 0644 {} \;
-RUN find /var/www/html ! -user www-data -exec chown www-data:www-data {} \;
-RUN chmod +x /var/www/html/bin/console
 
 ENV APACHE_DOCUMENT_ROOT /var/www/html/public
 
@@ -30,6 +22,9 @@ RUN mv "$PHP_INI_DIR/php.ini-production" "$PHP_INI_DIR/php.ini"
 RUN sed -ri -e 's!upload_max_filesize = 2M!upload_max_filesize = 20M!g' "$PHP_INI_DIR/php.ini"
 RUN sed -ri -e 's!memory_limit = 128M!memory_limit = 256M!g' "$PHP_INI_DIR/php.ini"
 
-ENTRYPOINT ["docker-php-entrypoint"]
+COPY osc-entrypoint.sh /usr/local/bin/osc-entrypoint.sh
+RUN chmod +x /usr/local/bin/osc-entrypoint.sh
+
+ENTRYPOINT ["/usr/local/bin/osc-entrypoint.sh"]
 
 CMD ["apache2-foreground"]
