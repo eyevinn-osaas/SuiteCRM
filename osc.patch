@@ -1,0 +1,20 @@
+--- InstallPreChecks.php.orig	2025-10-15 15:06:17.916355005 +0000
++++ InstallPreChecks.php	2025-10-15 15:06:46.328543004 +0000
+@@ -196,7 +196,7 @@
+             'errors' => [],
+         ];
+         if (empty($baseUrl)) {
+-            $baseUrl = ($_SERVER['REQUEST_SCHEME'] ?? 'https') . '://' . $_SERVER['HTTP_HOST'] . ($_SERVER['BASE'] ?? '');
++            $baseUrl = 'https://' . $_SERVER['HTTP_HOST'] . ($_SERVER['BASE'] ?? '');
+         }
+         $baseUrl = rtrim($baseUrl, '/');
+         $baseUrl .= '/';
+@@ -331,7 +331,7 @@
+         ];
+ 
+         if (empty($baseUrl)) {
+-            $baseUrl = ($_SERVER['REQUEST_SCHEME'] ?? 'https') . '://' . $_SERVER['HTTP_HOST'] . ($_SERVER['BASE'] ?? '');
++            $baseUrl = 'https://' . $_SERVER['HTTP_HOST'] . ($_SERVER['BASE'] ?? '');
+         }
+         $baseUrl = rtrim($baseUrl, '/');
+         $baseUrl .= '/';
