@@ -1,4 +1,4 @@
-FROM php:8.2-apache-bullseye
+FROM php:8.2-apache-bookworm
 
 RUN apt-get update && apt-get -y install wget unzip libzip-dev libicu-dev libxml2-dev libpng-dev
 
